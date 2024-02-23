@@ -5,3 +5,9 @@
 type Query {
   ok: Boolean!
 }
+
+type link {
+  description: String!
+  id: Int!
+  name: String!
+}

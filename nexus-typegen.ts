@@ -29,6 +29,11 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Query: {};
+  link: { // root type
+    description: string; // String!
+    id: number; // Int!
+    name: string; // String!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -45,11 +50,21 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     ok: boolean; // Boolean!
   }
+  link: { // field return type
+    description: string; // String!
+    id: number; // Int!
+    name: string; // String!
+  }
 }
 
 export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     ok: 'Boolean'
+  }
+  link: { // field return type name
+    description: 'String'
+    id: 'Int'
+    name: 'String'
   }
 }
 
