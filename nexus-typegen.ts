@@ -32,7 +32,7 @@ export interface NexusGenObjects {
   link: { // root type
     description: string; // String!
     id: number; // Int!
-    name: string; // String!
+    url: string; // String!
   }
 }
 
@@ -48,23 +48,23 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Query: { // field return type
-    ok: boolean; // Boolean!
+    feed: NexusGenRootTypes['link'][]; // [link!]!
   }
   link: { // field return type
     description: string; // String!
     id: number; // Int!
-    name: string; // String!
+    url: string; // String!
   }
 }
 
 export interface NexusGenFieldTypeNames {
   Query: { // field return type name
-    ok: 'Boolean'
+    feed: 'link'
   }
   link: { // field return type name
     description: 'String'
     id: 'Int'
-    name: 'String'
+    url: 'String'
   }
 }
 
