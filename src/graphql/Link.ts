@@ -1,4 +1,4 @@
-import { extendType, objectType } from "nexus";
+import { extendType, objectType, nonNull, stringArg } from "nexus";
 import { NexusGenObjects } from "../../nexus-typegen";
 
 
@@ -35,6 +35,36 @@ export const LinkQuery = extendType({
             type: 'link', 
             resolve(parent, args, context, info) {
                 return links
+            }
+        })
+    }
+})
+
+
+export const linkMutation = extendType({
+    type: 'Mutation', 
+    definition(t) {
+        t.nonNull.field('post', {
+            type: 'link', 
+            args: {
+                description: nonNull(stringArg()), 
+                url: nonNull(stringArg())
+            }, 
+            resolve(parent, args, context) {
+                const {description, url} = args
+                 
+                let idCount = links.length + 1 
+
+                const link = {
+                    id: idCount, 
+                    description, 
+                    url
+                }
+                
+                links.push(link)
+
+                return link
+
             }
         })
     }
