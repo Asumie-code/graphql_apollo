@@ -34,7 +34,7 @@ export const LinkQuery = extendType({
         t.nonNull.list.nonNull.field('feed', {
             type: 'link', 
             resolve(parent, args, context, info) {
-                return links
+                return context.prisma.link.findMany()
             }
         })
     }
@@ -51,19 +51,13 @@ export const linkMutation = extendType({
                 url: nonNull(stringArg())
             }, 
             resolve(parent, args, context) {
-                const {description, url} = args
-                 
-                let idCount = links.length + 1 
-
-                const link = {
-                    id: idCount, 
-                    description, 
-                    url
-                }
-                
-                links.push(link)
-
-                return link
+                const newLink = context.prisma.link.create({
+                    data: {
+                        description: args.description,
+                        url: args.url
+                    }
+                })
+                return newLink
 
             }
         })
