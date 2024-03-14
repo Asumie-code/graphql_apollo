@@ -28,8 +28,17 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AuthPayLoad: { // root type
+    token: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+  }
   Mutation: {};
   Query: {};
+  User: { // root type
+    email: string; // String!
+    id: number; // Int!
+    name: string; // String!
+  }
   link: { // root type
     description: string; // String!
     id: number; // Int!
@@ -48,38 +57,73 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  AuthPayLoad: { // field return type
+    token: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+  }
   Mutation: { // field return type
+    login: NexusGenRootTypes['AuthPayLoad']; // AuthPayLoad!
     post: NexusGenRootTypes['link']; // link!
+    signup: NexusGenRootTypes['AuthPayLoad']; // AuthPayLoad!
   }
   Query: { // field return type
     feed: NexusGenRootTypes['link'][]; // [link!]!
   }
+  User: { // field return type
+    email: string; // String!
+    id: number; // Int!
+    links: NexusGenRootTypes['link'][]; // [link!]!
+    name: string; // String!
+  }
   link: { // field return type
     description: string; // String!
     id: number; // Int!
+    postedBy: NexusGenRootTypes['User'] | null; // User
     url: string; // String!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  AuthPayLoad: { // field return type name
+    token: 'String'
+    user: 'User'
+  }
   Mutation: { // field return type name
+    login: 'AuthPayLoad'
     post: 'link'
+    signup: 'AuthPayLoad'
   }
   Query: { // field return type name
     feed: 'link'
   }
+  User: { // field return type name
+    email: 'String'
+    id: 'Int'
+    links: 'link'
+    name: 'String'
+  }
   link: { // field return type name
     description: 'String'
     id: 'Int'
+    postedBy: 'User'
     url: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
+    login: { // args
+      email: string; // String!
+      password: string; // String!
+    }
     post: { // args
       description: string; // String!
       url: string; // String!
+    }
+    signup: { // args
+      email: string; // String!
+      name: string; // String!
+      password: string; // String!
     }
   }
 }
