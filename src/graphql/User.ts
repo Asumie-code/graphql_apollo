@@ -1,5 +1,6 @@
 import { objectType } from "nexus";
 
+
 export const User = objectType({
     name: "User",
     definition(t) {
@@ -11,8 +12,14 @@ export const User = objectType({
             resolve(parent, args, context) {   // 2
                 return context.prisma.user  // 3
                     .findUnique({ where: { id: parent.id } })
-                .links();
+                .links(); 
             },
         }); 
+        t.nonNull.list.nonNull.field("votes", {
+            type: "link",
+            resolve(parent, args, context) {
+                return context.prisma.user.findUnique({where: { id: parent.id}}).votes()
+            } 
+        })
     },
 });

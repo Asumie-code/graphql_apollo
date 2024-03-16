@@ -39,6 +39,10 @@ export interface NexusGenObjects {
     id: number; // Int!
     name: string; // String!
   }
+  Vote: { // root type
+    link: NexusGenRootTypes['link']; // link!
+    user: NexusGenRootTypes['User']; // User!
+  }
   link: { // root type
     description: string; // String!
     id: number; // Int!
@@ -65,6 +69,7 @@ export interface NexusGenFieldTypes {
     login: NexusGenRootTypes['AuthPayLoad']; // AuthPayLoad!
     post: NexusGenRootTypes['link']; // link!
     signup: NexusGenRootTypes['AuthPayLoad']; // AuthPayLoad!
+    vote: NexusGenRootTypes['Vote'] | null; // Vote
   }
   Query: { // field return type
     feed: NexusGenRootTypes['link'][]; // [link!]!
@@ -74,12 +79,18 @@ export interface NexusGenFieldTypes {
     id: number; // Int!
     links: NexusGenRootTypes['link'][]; // [link!]!
     name: string; // String!
+    votes: NexusGenRootTypes['link'][]; // [link!]!
+  }
+  Vote: { // field return type
+    link: NexusGenRootTypes['link']; // link!
+    user: NexusGenRootTypes['User']; // User!
   }
   link: { // field return type
     description: string; // String!
     id: number; // Int!
     postedBy: NexusGenRootTypes['User'] | null; // User
     url: string; // String!
+    voters: NexusGenRootTypes['User'][]; // [User!]!
   }
 }
 
@@ -92,6 +103,7 @@ export interface NexusGenFieldTypeNames {
     login: 'AuthPayLoad'
     post: 'link'
     signup: 'AuthPayLoad'
+    vote: 'Vote'
   }
   Query: { // field return type name
     feed: 'link'
@@ -101,12 +113,18 @@ export interface NexusGenFieldTypeNames {
     id: 'Int'
     links: 'link'
     name: 'String'
+    votes: 'link'
+  }
+  Vote: { // field return type name
+    link: 'link'
+    user: 'User'
   }
   link: { // field return type name
     description: 'String'
     id: 'Int'
     postedBy: 'User'
     url: 'String'
+    voters: 'User'
   }
 }
 
@@ -124,6 +142,9 @@ export interface NexusGenArgTypes {
       email: string; // String!
       name: string; // String!
       password: string; // String!
+    }
+    vote: { // args
+      linkId: number; // Int!
     }
   }
 }
